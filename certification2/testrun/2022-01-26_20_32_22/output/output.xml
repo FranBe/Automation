@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.2 (Python 3.7.5 on linux)" generated="20220126 20:33:38.816" rpa="true" schemaversion="2">
+<suite id="s1" name="Tasks" source="/tmp/workarea61f1da06/tasks.robot">
+<test id="s1-t1" name="Order robots from RobotSpareBin Industries Inc">
+<kw name="Get Secret" library="RPA.Robocorp.Vault">
+<var>${secret}</var>
+<arg>website</arg>
+<doc>Read a secret from the configured source, e.g. Robocorp Vault,
+and return it as a ``Secret`` object.</doc>
+<msg timestamp="20220126 20:33:40.477" level="INFO">Protecting keyword: RPA.Robocorp.Vault.Get Secret</msg>
+<msg timestamp="20220126 20:33:40.479" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20220126 20:33:40.477" endtime="20220126 20:33:40.479"/>
+</kw>
+<kw name="Open browser" library="keywords">
+<arg>${secret}[url]</arg>
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>${url}</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20220126 20:33:40.481" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220126 20:33:40.516" level="INFO">Created download root directory: /home/blues/.robocorp/webdrivers</msg>
+<msg timestamp="20220126 20:33:40.517" level="INFO">Created symlink directory: /home/blues/.robocorp/webdrivers</msg>
+<msg timestamp="20220126 20:33:40.519" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220126 20:33:52.957" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20220126 20:33:52.957" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20220126 20:33:52.957" level="INFO">Opening url 'https://robotsparebinindustries.com/#/robot-order'</msg>
+<status status="PASS" starttime="20220126 20:33:40.480" endtime="20220126 20:33:55.424"/>
+</kw>
+<status status="PASS" starttime="20220126 20:33:40.479" endtime="20220126 20:33:55.425"/>
+</kw>
+<kw name="Order robots and save receipts" library="keywords">
+<kw name="Input form dialog" library="keywords">
+<var>${url_csv}</var>
+<kw name="Get Value From User" library="Dialogs">
+<var>${getCSV}</var>
+<arg>Type URL for CSV</arg>
+<arg>https://robotsparebinindustries.com/orders.csv</arg>
+<doc>Pauses test execution and asks user to input a value.</doc>
+<msg timestamp="20220126 20:34:00.250" level="FAIL">No value provided by user.</msg>
+<status status="FAIL" starttime="20220126 20:33:55.428" endtime="20220126 20:34:00.250"/>
+</kw>
+<status status="FAIL" starttime="20220126 20:33:55.427" endtime="20220126 20:34:00.255"/>
+</kw>
+<kw name="Get orders" library="keywords">
+<var>${orders}</var>
+<arg>${url_csv}</arg>
+<status status="NOT RUN" starttime="20220126 20:34:00.257" endtime="20220126 20:34:00.257"/>
+</kw>
+<for flavor="IN">
+<var>${rows}</var>
+<value>@{orders}</value>
+<iter>
+<var name="${rows}">${rows}</var>
+<kw name="Press OK" library="keywords">
+<status status="NOT RUN" starttime="20220126 20:34:00.258" endtime="20220126 20:34:00.258"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${rows}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20220126 20:34:00.259" endtime="20220126 20:34:00.259"/>
+</kw>
+<kw name="Fill the form" library="keywords">
+<arg>${rows}</arg>
+<status status="NOT RUN" starttime="20220126 20:34:00.259" endtime="20220126 20:34:00.259"/>
+</kw>
+<kw name="Preview robot" library="keywords">
+<status status="NOT RUN" starttime="20220126 20:34:00.260" endtime="20220126 20:34:00.260"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>5x</arg>
+<arg>0.5s</arg>
+<arg>Submit order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" starttime="20220126 20:34:00.260" endtime="20220126 20:34:00.260"/>
+</kw>
+<kw name="Store the receipt as a PDF file" library="keywords">
+<var>${pdf}</var>
+<arg>${rows}[Order number]</arg>
+<status status="NOT RUN" starttime="20220126 20:34:00.261" endtime="20220126 20:34:00.261"/>
+</kw>
+<kw name="Take a screenshot of the robot" library="keywords">
+<var>${screenshot}</var>
+<arg>${rows}[Order number]</arg>
+<status status="NOT RUN" starttime="20220126 20:34:00.261" endtime="20220126 20:34:00.262"/>
+</kw>
+<kw name="Embed the robot screenshot to the receipt PDF file" library="keywords">
+<arg>${screenshot}</arg>
+<arg>${pdf}</arg>
+<status status="NOT RUN" starttime="20220126 20:34:00.262" endtime="20220126 20:34:00.262"/>
+</kw>
+<kw name="Go to order another robot" library="keywords">
+<status status="NOT RUN" starttime="20220126 20:34:00.263" endtime="20220126 20:34:00.263"/>
+</kw>
+<status status="NOT RUN" starttime="20220126 20:34:00.257" endtime="20220126 20:34:00.263"/>
+</iter>
+<status status="NOT RUN" starttime="20220126 20:34:00.257" endtime="20220126 20:34:00.263"/>
+</for>
+<status status="FAIL" starttime="20220126 20:33:55.426" endtime="20220126 20:34:00.265"/>
+</kw>
+<kw name="Archive Output PDF Files to ZIP" library="keywords">
+<status status="NOT RUN" starttime="20220126 20:34:00.266" endtime="20220126 20:34:00.266"/>
+</kw>
+<kw name="Close Browser" library="RPA.Browser.Selenium" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220126 20:34:00.268" endtime="20220126 20:34:00.331"/>
+</kw>
+<status status="FAIL" starttime="20220126 20:33:40.475" endtime="20220126 20:34:00.331">No value provided by user.</status>
+</test>
+<doc>Orders robots from RobotSpareBin Industries Inc.
+Saves the order HTML receipt as a PDF file.
+Saves the screenshot of the ordechromered robot.
+Embeds the screenshot of the robot to the PDF receipt.
+Creates ZIP archive of the receipts and the images.</doc>
+<status status="FAIL" starttime="20220126 20:33:38.817" endtime="20220126 20:34:00.333"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
