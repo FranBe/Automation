@@ -1,2 +1,2 @@
 # RobotFramework
-Robocorp and RobotFramwork projects
+Selenium, Robocorp and RobotFramework projects
